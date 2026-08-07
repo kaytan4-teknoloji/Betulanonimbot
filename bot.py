@@ -99,6 +99,5 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('soru', soru_gonder))
     application.add_handler(CallbackQueryHandler(button_handler))
     application.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
-    application.add_handler(CallbackQueryHandler(button_handler))
     print("Anonim Soru-Cevap botu çalışıyor...")
     application.run_polling()
