@@ -19,6 +19,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "ve gelen anonim cevapları alabilirsin.\n\n"
             "Gruba anonim soru göndermek için /soru komutunu kullanabilirsin."
         )
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
 
 async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global question_counter
@@ -97,6 +100,3 @@ if __name__ == '__main__':
     
     print("Anonim Soru-Cevap botu çalışıyor...")
     application.run_polling()
-async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
