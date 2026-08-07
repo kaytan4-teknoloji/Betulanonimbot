@@ -26,7 +26,9 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global question_counter
     chat = update.message.chat
-    
+    keyboard = [[InlineKeyboardButton("Cevapla", callback_data="cevapla")]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
     if chat.type == "private":
         text_args = context.args
         if not text_args:
