@@ -38,15 +38,14 @@ async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "author": update.message.from_user.id,
             "text": soru_metni
         }
+    await context.bot.send_message(
+        chat_id=GROUP_ID,
+        text=f"Anonim Soru:\n\n{soru_metni}",
+        reply_markup=reply_markup
+    )
+    
+    await update.message.reply_text("✅ Anonim sorunuz gruba iletildi!")
 
-        GROUP_CHAT_ID = update.effective_chat.id
-
-        keyboard = [[InlineKeyboardButton("💬 Anonim Cevap Ver", callback_data=f"cevap_{soru_id}")]]
-        reply_markup = InlineKeyboardMarkup(keyboard)
-
-        await update.message.reply_text("✅ Anonim sorunuz gruba iletildi!")
-
-async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
