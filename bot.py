@@ -95,34 +95,30 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.user_data.pop("answering_to", None)
             context.user_data.pop("answering_to_question", None)
             return
+if __name__ == '__main__':
+    token = os.environ.get("BOT_TOKEN")
+    application = ApplicationBuilder().token(token).build()
 
-        await update.message.reply_text("Gruba anonim soru göndermek için /soru [mesajın] komutunu kullanabilirsin.")
+    application.add_handler(CommandHandler('start', start))
+    application.add_handler(CommandHandler('soru', soru))
+    application.add_handler(CallbackQueryHandler(callback_handler))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, cevap_al))
 
-    chat = update.message.chat
-    user = update.message.from_user
+    print("Anonim Soru-Cevap botu çalışıyor...")
+    application.run_polling()
 
-    if chat.type == "private":
-        if update.message.text.startswith('/'):
-            return
+if __name__ == '__main__':
+    token = os.environ.get("BOT_TOKEN")
+    application = ApplicationBuilder().token(token).build()
 
-        if "answering_to_question" in context.user_data:
-            soru_id = context.user_data["answering_to_question"]
-            cevap_metni = update.message.text
-            
-            soru_bilgisi = active_questions.get(soru_id)
-            if soru_bilgisi:
-                soru_sahibi_id = soru_bilgisi["author"]
-                
-                try:
-                    await context.bot.send_message(
-                        chat_id=soru_sahibi_id,
-                        text=f"📩 **#{soru_id} Numaralı Sorunuza Anonim Cevap Geldi:**\n\n{cevap_metni}"
-                    )
-                    await update.message.reply_text("✅ Cevabınız soru sahibine anonim olarak iletildi!")
-                except Exception:
-                    await update.message.reply_text("❌ Cevap gönderilemedi.")
-            
-            del context.user_data["answering_to_question"]
+    application.add_handler(CommandHandler('start', start))
+    application.add_handler(CommandHandler('soru', soru))
+    application.add_handler(CallbackQueryHandler(callback_handler))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, cevap_al))
+
+    print("Anonim Soru-Cevap botu çalışıyor...")
+    application.run_polling()
+
         else:
             await update.message.reply_text("Gruba anonim soru göndermek için /soru [mesajın] komutunu kullanabilirsin.")
 async def cevap_al(update: Update, context: ContextTypes.DEFAULT_TYPE):
