@@ -22,7 +22,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
+    
+        await context.bot.send_message(
+        chat_id=query.from_user.id,
+        text="Bu soruya cevap vermek için lütfen bu sohbetten bana yazabilir misin?"
+    )
 async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global question_counter
     chat = update.message.chat
