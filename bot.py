@@ -97,3 +97,6 @@ if __name__ == '__main__':
     
     print("Anonim Soru-Cevap botu çalışıyor...")
     application.run_polling()
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
