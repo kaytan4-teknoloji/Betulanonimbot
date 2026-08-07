@@ -77,6 +77,28 @@ async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat = update.message.chat
+    if chat.type == "private":
+        if update.message.text and update.message.text.startswith('/'):
+            return
+            
+        soru_id_str = context.user_data.get("answering_to") or context.user_data.get("answering_to_question")
+        if soru_id_str:
+            soru_id = int(soru_id_str)
+            cevap_metni = update.message.text
+            
+            await context.bot.send_message(
+                chat_id=GROUP_ID,
+                text=f"#{soru_id} numaralı soruya gelen anonim cevap:\n\n{cevap_metni}"
+            )
+            
+            await update.message.reply_text("Cevabınız anonim olarak gruba iletildi!")
+            context.user_data.pop("answering_to", None)
+            context.user_data.pop("answering_to_question", None)
+            return
+
+        await update.message.reply_text("Gruba anonim soru göndermek için /soru [mesajın] komutunu kullanabilirsin.")
+
+    chat = update.message.chat
     user = update.message.from_user
 
     if chat.type == "private":
