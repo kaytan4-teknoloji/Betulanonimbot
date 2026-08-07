@@ -23,14 +23,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     
-        await context.bot.send_message(
-        chat_id=query.from_user.id,
-        text="Bu soruya cevap vermek için lütfen bu sohbetten bana yazabilir misin?"
-    )
+    data = query.data
+    if data.startswith("cevap_"):
+        soru_id = data.split("_")[1]
+                await context.bot.send_message(
+            chat_id=query.from_user.id,
+            text=f"#{soru_id} numaralı soruya cevap vermek için lütfen mesajını buraya yaz:"
+        )
+
+
 async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global question_counter
     chat = update.message.chat
-    keyboard = [[InlineKeyboardButton("Cevapla", callback_data="cevapla")]]
+    keyboard = [[InlineKeyboardButton("Cevapla", callback_data=f"cevap_{question_counter}")]]
+
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     if chat.type == "private":
