@@ -25,11 +25,12 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
     if data.startswith("cevap_"):
         soru_id = data.split("_")[1]
+        context.user_data["answering_to"] = soru_id
         await context.bot.send_message(
             chat_id=query.from_user.id,
-               text=f"#{soru_id} numaralı soruya cevap vermek için lütfen mesajını buraya yaz:"
-
+            text=f"#{soru_id} numaralı soruya cevap vermek için lütfen mesajını buraya yaz:"
         )
+
 
 
 
