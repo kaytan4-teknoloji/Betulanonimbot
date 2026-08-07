@@ -24,12 +24,14 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
     
     data = query.data
-    if data.startswith("cevap_"):
+        if data.startswith("cevap_"):
         soru_id = data.split("_")[1]
-                await context.bot.send_message(
+        await context.bot.send_message(
             chat_id=query.from_user.id,
-            text=f"#{soru_id} numaralı soruya cevap vermek için lütfen mesajını buraya yaz:"
+                        text=f"#{soru_id} numaralı soruya cevap vermek için lütfen mesajını buraya yaz:"
+
         )
+
 
 
 async def soru_gonder(update: Update, context: ContextTypes.DEFAULT_TYPE):
