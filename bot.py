@@ -2,14 +2,10 @@ import os
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, MessageHandler, filters
-
-TOKEN = '8975033616:AAGyZhDkBE2U6-rYtic9lSbCCLfdVA4sHSQ'
+TOKEN = os.environ.get("TELEGRAM_TOKEN")
 GROUP_ID = -1003936925533
-
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
 active_questions = {}
-
 async def soru(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.chat.type != "private":
         await update.message.reply_text("Lütfen botu özel mesajda (DM) kullanın.")
