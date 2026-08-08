@@ -10,7 +10,6 @@ async def soru(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.chat.type != "private":
         await update.message.reply_text("Lütfen botu özel mesajda (DM) kullanın.")
         return
-    
     if not context.args:
         await update.message.reply_text("Lütfen sorunuzu komutla birlikte yazın. Örnek: /soru Selamlar")
         return
@@ -18,10 +17,8 @@ async def soru(update: Update, context: ContextTypes.DEFAULT_TYPE):
     soru_metni = " ".join(context.args)
     soru_id = len(active_questions) + 1
     active_questions[soru_id] = update.message.from_user.id
-    
     keyboard = [[InlineKeyboardButton("Cevap Ver", callback_data=f"cevap_{soru_id}")]]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    
     await context.bot.send_message(
         chat_id=GROUP_ID,
         text=f"Anonim Soru #{soru_id}:\n\n{soru_metni}",
