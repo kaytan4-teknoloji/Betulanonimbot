@@ -176,7 +176,6 @@ async def cevap_al(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == '__main__':
     token = TOKEN
     application = ApplicationBuilder().token(token).build()
-
     application.add_handler(CommandHandler('start', start))
     application.add_handler(CommandHandler('soru', soru))
     application.add_handler(CallbackQueryHandler(callback_handler))
