@@ -9,7 +9,6 @@ GROUP_ID = -1003936925533
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 active_questions = {}
-question_counter = 0
 
 async def soru(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.chat.type != "private":
@@ -56,10 +55,8 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def cevap_al(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat = update.message.chat
-    user = update.message.from_user
-
     if chat.type == "private":
-        if update.message.text.startswith('/'):
+        if update.message.text and update.message.text.startswith('/'):
             return
 
         soru_id_str = context.user_data.get("answering_to")
@@ -72,7 +69,7 @@ async def cevap_al(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     chat_id=GROUP_ID,
                     text=f"#{soru_id} numaralı soruya gelen cevap:\n\n{cevap_metni}"
                 )
-                await update.message.reply_text("Cevabınız soru sahibine (gruba) iletildi!")
+                await update.message.reply_text("Cevabınız gruba iletildi!")
                 context.user_data["answering_to"] = None
             except Exception:
                 await update.message.reply_text("Cevap gönderilirken bir hata oluştu.")
