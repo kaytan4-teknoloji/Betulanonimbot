@@ -3,7 +3,7 @@ import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
-TOKEN = '8975033616:AAGec03C4IxQYnbcBEFsoo-H'
+TOKEN = '8975033616:AAGyZhDkBE2U6-rYtic9lSbCCLfdVA4sHSQ'
 GROUP_ID = -1003936925533
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
