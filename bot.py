@@ -174,7 +174,7 @@ async def cevap_al(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             await update.message.reply_text("Gruba anonim soru göndermek için /soru [mesajın] komutunu kullanabilirsin.")
 if __name__ == '__main__':
-    token = os.environ.get("BOT_TOKEN")
+token = TOKEN
     application = ApplicationBuilder().token(token).build()
 
     application.add_handler(CommandHandler('start', start))
